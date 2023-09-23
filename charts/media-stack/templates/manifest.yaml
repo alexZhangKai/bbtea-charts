@@ -1,0 +1,44 @@
+{{- if .Values.jellyfin.enabled -}}
+{{- $appConfig := dict -}}
+{{- $appConfig := merge $appConfig .Values.jellyfin .Values.common -}}
+{{- $_ := set $appConfig "namePrefix" (include "media-stack.name-prefix" .) -}}
+{{ template "media-stack.deployment-template" $appConfig }}
+{{ template "media-stack.service-template" $appConfig }}
+{{ template "media-stack.ingress-template" $appConfig }}
+{{ end }}
+
+{{- if .Values.transmission.enabled -}}
+{{- $appConfig := dict -}}
+{{- $appConfig := merge $appConfig .Values.transmission .Values.common -}}
+{{- $_ := set $appConfig "namePrefix" (include "media-stack.name-prefix" .) -}}
+{{ template "media-stack.deployment-template" $appConfig }}
+{{ template "media-stack.service-template" $appConfig }}
+{{ template "media-stack.ingress-template" $appConfig }}
+{{ end }}
+
+{{- if .Values.sonarr.enabled -}}
+{{- $appConfig := dict -}}
+{{- $appConfig := merge $appConfig .Values.sonarr .Values.common -}}
+{{- $_ := set $appConfig "namePrefix" (include "media-stack.name-prefix" .) -}}
+{{ template "media-stack.deployment-template" $appConfig }}
+{{ template "media-stack.service-template" $appConfig }}
+{{ template "media-stack.ingress-template" $appConfig }}
+{{ end }}
+
+{{- if .Values.radarr.enabled -}}
+{{- $appConfig := dict -}}
+{{- $appConfig := merge $appConfig .Values.radarr .Values.common -}}
+{{- $_ := set $appConfig "namePrefix" (include "media-stack.name-prefix" .) -}}
+{{ template "media-stack.deployment-template" $appConfig }}
+{{ template "media-stack.service-template" $appConfig }}
+{{ template "media-stack.ingress-template" $appConfig }}
+{{ end }}
+
+{{- if .Values.prowlarr.enabled -}}
+{{- $appConfig := dict -}}
+{{- $appConfig := merge $appConfig .Values.prowlarr .Values.common -}}
+{{- $_ := set $appConfig "namePrefix" (include "media-stack.name-prefix" .) -}}
+{{ template "media-stack.deployment-template" $appConfig }}
+{{ template "media-stack.service-template" $appConfig }}
+{{ template "media-stack.ingress-template" $appConfig }}
+{{ end }}

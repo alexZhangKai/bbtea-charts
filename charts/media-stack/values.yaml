@@ -1,0 +1,140 @@
+common:
+  namespace: media
+  env:
+  - name: PUID
+    value: "1000"
+  - name: PGID
+    value: "1000"
+  - name: TZ
+    value: "Australia/Melbourne"
+  replicas: 1
+
+jellyfin:
+  enabled: true
+  appName: jellyfin
+  image: lscr.io/linuxserver/jackett:latest
+  ports:
+  - name: webui-http
+    containerPort: 8096
+    servicePort: 80
+    protocol: TCP
+  volumes:
+  - name: config
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/config/jellyfin
+    mountPath: /config
+  - name: tv
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/tv
+    mountPath: /tv
+  - name: movies
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/movies
+    mountPath: /movies
+
+transmission:
+  enabled: true
+  appName: transmission
+  image: lscr.io/linuxserver/transmission:latest
+  ports:
+  - name: webui-http
+    containerPort: 9091
+    servicePort: 80
+    protocol: TCP
+  - name: torrent
+    containerPort: 51413
+    protocol: TCP
+  volumes:
+  - name: config
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/config/transmission
+    mountPath: /config
+  - name: downloads
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/downloads
+    mountPath: /downloads
+  - name: watch
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/watch
+    mountPath: /watch
+
+
+sonarr:
+  enabled: false
+  appName: sonarr
+  image: lscr.io/linuxserver/sonarr:latest
+  ports:
+  - name: webui-http
+    containerPort: 8989
+    servicePort: 80
+    protocol: TCP
+  volumes:
+  - name: config
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/config/sonarr
+    mountPath: /config
+  - name: downloads
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/downloads
+    mountPath: /downloads
+  - name: tv
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/tv
+    mountPath: /tv
+
+
+radarr:
+  enabled: true
+  appName: radarr
+  image: lscr.io/linuxserver/radarr:latest
+  ports:
+  - name: webui-http
+    containerPort: 7878
+    servicePort: 80
+    protocol: TCP
+  volumes:
+  - name: config
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/config/radarr
+    mountPath: /config
+  - name: downloads
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/downloads
+    mountPath: /downloads
+  - name: movies
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/movies
+    mountPath: /movies
+
+prowlarr:
+  enabled: true
+  appName: prowlarr
+  image: lscr.io/linuxserver/prowlarr:latest
+  ports:
+  - name: webui-http
+    containerPort: 9696
+    servicePort: 80
+    protocol: TCP
+  volumes:
+  - name: config
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/config/prowlarr
+    mountPath: /config
+  - name: downloads
+    type: hostPath # hostPath or persistentVolumeClaim
+    # for hostPath
+    hostPath: /mnt/disk/downloads
+    mountPath: /downloads

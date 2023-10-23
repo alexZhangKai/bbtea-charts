@@ -5,10 +5,8 @@ kind: Ingress
 metadata:
   name: {{ .namePrefix }}-{{ .appName }}-ingress
   namespace: {{ .namespace }}
-  annotations:
-    kubernetes.io/ingress.class: "kong"
-    konghq.com/protocols: https,http
 spec:
+  ingressClassName: traefik
   rules:
     - host: {{ .appName }}.home.arpa
       http:

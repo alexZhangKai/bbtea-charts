@@ -15,6 +15,7 @@ spec:
       labels:
         app: {{ .appName }}
     spec:
+      nodeName: {{ .nodeName }}
       containers:
       - name: {{ .appName }}
         image: "{{ .image }}"

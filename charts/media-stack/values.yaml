@@ -8,6 +8,7 @@ common:
   - name: TZ
     value: "Australia/Melbourne"
   replicas: 1
+  nodeName: k3s-agent-0
 
 jellyfin:
   enabled: true
@@ -22,17 +23,17 @@ jellyfin:
   - name: config
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/config/jellyfin
+    hostPath: /mnt/pv/config/jellyfin
     mountPath: /config
   - name: tv
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/tv
+    hostPath: /mnt/pv/tv
     mountPath: /tv
   - name: movies
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/movies
+    hostPath: /mnt/pv/movies
     mountPath: /movies
 
 transmission:
@@ -51,17 +52,17 @@ transmission:
   - name: config
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/config/transmission
+    hostPath: /mnt/pv/config/transmission
     mountPath: /config
   - name: downloads
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/downloads
+    hostPath: /mnt/pv/downloads
     mountPath: /downloads
   - name: watch
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/watch
+    hostPath: /mnt/pv/watch
     mountPath: /watch
 
 
@@ -78,17 +79,17 @@ sonarr:
   - name: config
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/config/sonarr
+    hostPath: /mnt/pv/config/sonarr
     mountPath: /config
   - name: downloads
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/downloads
+    hostPath: /mnt/pv/downloads
     mountPath: /downloads
   - name: tv
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/tv
+    hostPath: /mnt/pv/tv
     mountPath: /tv
 
 
@@ -105,17 +106,17 @@ radarr:
   - name: config
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/config/radarr
+    hostPath: /mnt/pv/config/radarr
     mountPath: /config
   - name: downloads
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/downloads
+    hostPath: /mnt/pv/downloads
     mountPath: /downloads
   - name: movies
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/movies
+    hostPath: /mnt/pv/movies
     mountPath: /movies
 
 prowlarr:
@@ -131,10 +132,10 @@ prowlarr:
   - name: config
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/config/prowlarr
+    hostPath: /mnt/pv/config/prowlarr
     mountPath: /config
   - name: downloads
     type: hostPath # hostPath or persistentVolumeClaim
     # for hostPath
-    hostPath: /mnt/disk/downloads
+    hostPath: /mnt/pv/downloads
     mountPath: /downloads

@@ -13,7 +13,7 @@ common:
 jellyfin:
   enabled: true
   appName: jellyfin
-  image: lscr.io/linuxserver/jackett:latest
+  image: lscr.io/linuxserver/jellyfin:latest
   ports:
   - name: webui-http
     containerPort: 8096

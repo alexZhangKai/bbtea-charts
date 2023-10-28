@@ -4,7 +4,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .namePrefix }}-{{ .appName }}-ingress
-  namespace: {{ .namespace }}
 spec:
   ingressClassName: traefik
   rules:

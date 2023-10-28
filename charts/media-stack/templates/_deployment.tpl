@@ -4,7 +4,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .namePrefix }}-{{ .appName }}-deployment
-  namespace: {{ .namespace }}
 spec:
   replicas: {{ .replicaCount | default 1 }}
   selector:

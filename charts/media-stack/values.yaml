@@ -1,5 +1,4 @@
 common:
-  namespace: media
   env:
   - name: PUID
     value: "1000"
@@ -67,7 +66,7 @@ transmission:
 
 
 sonarr:
-  enabled: false
+  enabled: true
   appName: sonarr
   image: lscr.io/linuxserver/sonarr:latest
   ports:

@@ -1,0 +1,25 @@
+- name: Configure Wireguard
+  hosts: wireguard
+  tasks:
+  - name: Print message to check connection
+    ansible.builtin.debug:
+      msg: Hello world
+  - name: Install packages
+    ansible.builtin.apt:
+      name:
+      - wireguard
+      - net-tools
+      update_cache: yes
+  - name: Create wireguard config
+    ansible.builtin.copy:
+      dest: /etc/wireguard/wg0.conf
+      content: "{{ lookup('community.sops.sops', 'wg0.enc.conf') }}"
+  - name: Enable IP forward in file
+    ansible.builtin.lineinfile:
+      path: /etc/sysctl.conf
+      regexp: '^net.ipv4.ip_forward='
+      line: net.ipv4.ip_forward=1
+  - name: Check ip forward
+    ansible.builtin.shell: sysctl -p
+  - name: Start wireguard
+    ansible.builtin.shell: wg-quick up wg0

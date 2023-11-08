@@ -1,0 +1,35 @@
+{
+  "to": [
+    {
+      "email": "PLACEHOLDER",
+      "name": "PLACEHOLDER"
+    }
+  ],
+  "bcc": [
+    {
+      "email": "alexzhang1931@gmail.com",
+      "name": "Alex"
+    }
+  ],
+  "from": {
+    "email": "mailtrap@bbtea.dev",
+    "name": "I am a bot"
+  },
+  "attachments": [
+    {
+      "content": "PLACEHOLDER",
+      "filename": "qr.png",
+      "type": "image/png",
+      "disposition": "attachment"
+    },
+    {
+      "content": "PLACEHOLDER",
+      "filename": "wg0.conf",
+      "type": "text/plain",
+      "disposition": "attachment"
+    }
+  ],
+  "subject": "Wireguard QR Code",
+  "text": "Hello. Use attached QR code in your wireguard client.",
+  "category": "qr-code-client"
+}

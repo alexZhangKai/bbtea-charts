@@ -1,0 +1,38 @@
+{
+  "to": [
+    {
+      "email": "john_doe@example.com",
+      "name": "John Doe"
+    }
+  ],
+  "bcc": [
+    {
+      "email": "james_doe@example.com",
+      "name": "Jim Doe"
+    }
+  ],
+  "from": {
+    "email": "sales@example.com",
+    "name": "Example Sales Team"
+  },
+  "attachments": [
+    {
+      "content": "PLACEHOLDER",
+      "filename": "qr.png",
+      "type": "image/png",
+      "disposition": "attachment"
+    },
+    {
+      "content": "PLACEHOLDER",
+      "filename": "wg0.conf",
+      "type": "text/plain",
+      "disposition": "attachment"
+    }
+  ],
+  "headers": {
+    "X-Message-Source": "dev.mydomain.com"
+  },
+  "subject": "QR Code",
+  "text": "QR code attached",
+  "category": "API Test"
+}

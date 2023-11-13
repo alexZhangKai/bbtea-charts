@@ -39,12 +39,18 @@
       else
         echo ...skip...dsnet is running
       fi
+    register: results
+  - debug:
+      var: results.stdout
   - name: Copy email template
     ansible.builtin.copy:
       src: email_template.json
       dest: /home/email_template.json
-  - name: Add client
-    # ansible.builtin.script: temp.sh
+  - name: Copy manage script
     ansible.builtin.copy:
-      src: temp.sh
-      dest: /home/temp.sh
+      src: manage.sh
+      dest: /home/manage.sh
+  - name: Copy mailtrap token
+    ansible.builtin.copy:
+      content: "{{ lookup('community.sops.sops', 'mailtrap_token.enc.txt') }}"
+      dest: /home/mailtrap_token.txt

@@ -3,3 +3,7 @@
 **/age.txt
 wg0.conf
 dsnetconfig.json
+mailtrap_token.txt
+mailtrap_sb_token.txt
+install.sh
+privatekey.yaml

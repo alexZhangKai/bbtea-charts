@@ -40,7 +40,8 @@ tolerations: []
 affinity: {}
 
 wgConfig:
-  serverIp: 170.64.154.86
+  serverIp: ""
   serverPort: 51822
   serverPublicKey: ""
+  serverPresharedKey: ""
   clientPrivateKeySecret: wg-secret

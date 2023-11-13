@@ -5,7 +5,7 @@ metadata:
 data:
   wg0.conf: |
     [Interface]
-    Address = 10.0.0.2/32
+    Address = 10.10.0.2/32
     ListenPort = 51820
     PostUp = wg set wg0 private-key /etc/wireguard/privatekey; iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
     PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
@@ -14,7 +14,8 @@ data:
     [Peer]
     # Name = vps
     PublicKey = {{ .Values.wgConfig.serverPublicKey }}
-    AllowedIPs = 10.0.0.0/24
+    PresharedKey = {{ .Values.wgConfig.serverPresharedKey }}
+    AllowedIPs = 10.10.0.0/24
     Endpoint = {{ .Values.wgConfig.serverIp }}:{{ .Values.wgConfig.serverPort }}
     PersistentKeepalive = 15
 ---
@@ -36,7 +37,7 @@ data:
 
     sleep 10
 
-    ping -4 -w 10 10.0.0.1
+    ping -4 -w 10 10.10.0.1
 
     # Inifinite sleep
     while true; do

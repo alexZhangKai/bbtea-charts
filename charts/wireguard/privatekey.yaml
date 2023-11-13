@@ -1,8 +1,0 @@
-apiVersion: v1
-data:
-  privatekey: NkYzbEQwSUx5ZDdmZ1pQQ2dmVGtHUzl2bHNmaUxJWHU2Q2lLbnU0c2JWZz0=
-kind: Secret
-metadata:
-  name: wg-secret
-  namespace: wireguard
-type: Opaque

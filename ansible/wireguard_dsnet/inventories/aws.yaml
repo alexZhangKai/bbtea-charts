@@ -1,7 +1,7 @@
 wireguard:
   hosts:
     vm01:
-      ansible_host: ec2-3-27-238-152.ap-southeast-2.compute.amazonaws.com
+      ansible_host: 54.253.78.38
       ansible_user: ubuntu
       ansible_ssh_private_key_file: ~/.ssh/aws.pem
       ansible_connection: ssh

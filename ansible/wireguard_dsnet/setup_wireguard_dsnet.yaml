@@ -31,6 +31,14 @@
       if ! (dsnet report)
       then
         dsnet init
+        while [ ! -f /etc/dsnetconfig.json ]
+        do
+          sleep 2
+        done
+        cat /etc/dsnetconfig.json \
+        | jq '.Networks = ["0.0.0.0/0"] | .PostUp = "iptables -A FORWARD -i dsnet -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE" | .PostDown = "iptables -D FORWARD -i dsnet -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE" | .DNS = "1.1.1.1"' \
+        > /etc/temp.json
+        mv /etc/temp.json /etc/dsnetconfig.json
       else
         echo ...skip...dsnet is running
       fi
@@ -50,9 +58,6 @@
       else
         echo ...skip...dsnet is running
       fi
-    register: results
-  - debug:
-      var: results.stdout
   - name: Copy email template
     ansible.builtin.copy:
       src: files/email_template.json
@@ -65,3 +70,9 @@
     ansible.builtin.copy:
       content: "{{ lookup('community.sops.sops', 'files/mailtrap_token.enc.txt') }}"
       dest: /home/mailtrap_token.txt
+  - name: Check Status
+    ansible.builtin.shell: |
+      dsnet report
+    register: status
+  - debug:
+      var: status.stdout

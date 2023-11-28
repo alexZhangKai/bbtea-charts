@@ -11,6 +11,7 @@ CLIENT_FOLDER=/home/$CLIENT_NAME
 BACKUP_FOLDER=/home/archive
 EMAIL_TEMPLATE_FILE=/home/email_template.json
 MAILTRAP_ENV=production
+MAILTRAP_TOKEN=$(cat /home/mailtrap_token.txt)
 
 add_user() {
   mkdir -p $CLIENT_FOLDER

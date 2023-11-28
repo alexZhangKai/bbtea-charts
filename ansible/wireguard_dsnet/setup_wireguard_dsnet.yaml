@@ -10,6 +10,7 @@
       - wireguard
       - net-tools
       - qrencode
+      - jq
       update_cache: yes
   - name: Install dsnet
     ansible.builtin.shell: |
@@ -20,10 +21,20 @@
       else
         echo ...skip...dsnet already installed.
       fi
-  - name: Create dsnet config
+  - name: Copy predefined dsnet config
     ansible.builtin.copy:
       dest: /etc/dsnetconfig.json
-      content: "{{ lookup('community.sops.sops', 'dsnetconfig.enc.json') }}"
+      content: "{{ lookup('community.sops.sops', 'files/dsnetconfig.enc.json') }}"
+    when: predefined_config == "true"
+  - name: Init dsnet config
+    ansible.builtin.shell: |
+      if ! (dsnet report)
+      then
+        dsnet init
+      else
+        echo ...skip...dsnet is running
+      fi
+    when: predefined_config == "false"
   - name: Enable IP forward in file
     ansible.builtin.lineinfile:
       path: /etc/sysctl.conf
@@ -44,13 +55,13 @@
       var: results.stdout
   - name: Copy email template
     ansible.builtin.copy:
-      src: email_template.json
+      src: files/email_template.json
       dest: /home/email_template.json
   - name: Copy manage script
     ansible.builtin.copy:
-      src: manage.sh
+      src: files/manage.sh
       dest: /home/manage.sh
   - name: Copy mailtrap token
     ansible.builtin.copy:
-      content: "{{ lookup('community.sops.sops', 'mailtrap_token.enc.txt') }}"
+      content: "{{ lookup('community.sops.sops', 'files/mailtrap_token.enc.txt') }}"
       dest: /home/mailtrap_token.txt

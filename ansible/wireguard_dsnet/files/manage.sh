@@ -12,6 +12,8 @@ BACKUP_FOLDER=/home/archive
 EMAIL_TEMPLATE_FILE=/home/email_template.json
 MAILTRAP_ENV=production
 MAILTRAP_TOKEN=$(cat /home/mailtrap_token.txt)
+HOST=$(cat /home/host.txt)
+REGION=$(cat /home/region.txt)
 
 add_user() {
   mkdir -p $CLIENT_FOLDER
@@ -47,7 +49,8 @@ generate_config() {
     --arg CLIENT_NAME "$CLIENT_NAME" \
     --arg QRDATA "$QRDATA" \
     --arg CONFDATA "$CONFDATA" \
-    '.to[0].email = $CLIENT_EMAIL | .to[0].name = $CLIENT_NAME | .attachments[0].content = $QRDATA | .attachments[1].content = $CONFDATA' \
+    --arg SUB "Server $HOST in $REGION is ready to connect..." \
+    '.to[0].email = $CLIENT_EMAIL | .to[0].name = $CLIENT_NAME | .attachments[0].content = $QRDATA | .attachments[1].content = $CONFDATA | .subject = $SUB' \
     $EMAIL_TEMPLATE_FILE >$CLIENT_FOLDER/email.json
   echo "Email drafted."
 

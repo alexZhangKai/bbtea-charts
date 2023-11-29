@@ -36,7 +36,10 @@
           sleep 2
         done
         cat /etc/dsnetconfig.json \
-        | jq '.Networks = ["0.0.0.0/0"] | .PostUp = "iptables -A FORWARD -i dsnet -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE" | .PostDown = "iptables -D FORWARD -i dsnet -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE" | .DNS = "1.1.1.1"' \
+        | jq \
+        --arg UP "iptables -A FORWARD -i dsnet -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE" \
+        --arg DOWN "iptables -D FORWARD -i dsnet -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE" \
+        '.Networks = ["0.0.0.0/0"] | .PostUp = $UP | .PostDown = $DOWN | .DNS = "1.1.1.1" | .ListenPort = 52222' \
         > /etc/temp.json
         mv /etc/temp.json /etc/dsnetconfig.json
       else
@@ -70,6 +73,14 @@
     ansible.builtin.copy:
       content: "{{ lookup('community.sops.sops', 'files/mailtrap_token.enc.txt') }}"
       dest: /home/mailtrap_token.txt
+  - name: Create host alias file
+    ansible.builtin.copy:
+      content: "{{ alias }}"
+      dest: /home/host.txt
+  - name: Create host region file
+    ansible.builtin.copy:
+      content: "{{ region }}"
+      dest: /home/region.txt
   - name: Check Status
     ansible.builtin.shell: |
       dsnet report

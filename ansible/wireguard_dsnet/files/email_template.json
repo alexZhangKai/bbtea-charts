@@ -30,6 +30,6 @@
     }
   ],
   "subject": "Wireguard QR Code",
-  "text": "Hello. Use attached QR code in your wireguard client.",
+  "text": "Hello.\nUse attached QR code in your wireguard client => https://apps.apple.com/au/app/wireguard/id1441195209",
   "category": "qr-code-client"
 }

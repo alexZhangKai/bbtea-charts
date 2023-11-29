@@ -1,7 +1,0 @@
-wireguard:
-  hosts:
-    vm01:
-      ansible_host: 170.64.153.254
-      ansible_user: root
-      ansible_ssh_private_key_file: ~/.ssh/digitalocean
-      ansible_connection: ssh
